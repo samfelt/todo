@@ -1,3 +1,4 @@
+import shutil
 from .Task import Task
 from .Project import Project
 
@@ -46,6 +47,17 @@ class TodoList(object):
                     temp_project = Project("Temp Project")
                     temp_project.set_name(line[1:-2].strip())
             self.projects.append(temp_project)
+
+    def export_file(self):
+        if self.filename is None:
+            print("ERROR: no filename to export to")
+            exit()
+
+        shutil.copyfile(self.filename, f"{self.filename}.bak")
+
+        with open(self.filename, mode="w", encoding="utf-8") as f:
+            for p in self.projects:
+                f.write(p.str_in_file_format(print_tasks=True, newline=True))
 
     def list_tasks(self, starting_number=None):
         for p in self.projects:

@@ -27,14 +27,17 @@ class Project(object):
             return_string += f" ({str(self.percent_finished())}%)"
         return return_string
 
-    def str_in_file_format(self, print_tasks=False):
+    def str_in_file_format(self, print_tasks=False, newline=False):
         """Return a string that can be printed to todo.txt. Include all tasks
         in project if required"""
 
         return_string = f"| {self.name} |"
         if print_tasks:
+            return_string += "\n"
             for t in self.tasks:
-                return_string += t.str_in_file_format()
+                return_string += t.str_in_file_format(newline=True)
+        if newline:
+            return_string += "\n"
         return return_string
 
     def add_task(self, t):

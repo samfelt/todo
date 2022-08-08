@@ -21,16 +21,20 @@ class Task(object):
         """Return a formatted string to be printed to a terminal."""
 
         if self.is_complete():
-            return f"[X] {self.description}"
+            return f"[x] {self.description}"
         else:
             return f"[ ] {self.description}"
 
-    def str_in_file_format(self):
+    def str_in_file_format(self, newline=False):
         """Return a string that can be placed directly in todo.txt."""
+        return_string = ""
         if self.is_complete():
-            return f"[X] {self.description}"
+            return_string += f"[x] {self.description}"
         else:
-            return f"[ ] {self.description}"
+            return_string += f"[ ] {self.description}"
+        if newline:
+            return_string += "\n"
+        return return_string
 
     def set_derscription(self, desc):
         """Set the description of the task."""
