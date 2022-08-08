@@ -9,9 +9,8 @@ setup(
     packages=find_packages(exclude=("tests*",)),
     entry_points={
         "console_scripts": [
-            "todo = todo.main:main",
-            "t = todo.main:main",
+            "todo = todo.__main__:main",
+            "t = todo.__main__:main",
         ]
-    }
+    },
 )
-
