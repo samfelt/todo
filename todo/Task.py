@@ -46,7 +46,7 @@ class Task(object):
 
     def unfinish(self):
         """Set the task as in progress."""
-        self.state = self.State.IN_PROGESS
+        self.state = self.State.IN_PROGRESS
 
     def is_complete(self):
         """Return True if the task is complete."""

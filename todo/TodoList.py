@@ -66,3 +66,33 @@ class TodoList(object):
             if starting_number is not None:
                 starting_number += len(p.tasks)
             print()
+
+    def list_projects(self, starting_number=None):
+        for p in self.projects:
+            if starting_number is not None:
+                print(f"({starting_number:<2}) {p.name}")
+                starting_number += 1
+            else:
+                print(p.name)
+
+    def add_project(self, p):
+        """Add a Project to list of projects."""
+        self.projects.append(p)
+
+    def get_task_by_index(self, index):
+        """Return a task from a list of all tasks from all projects. The index
+        starts at 0 with the first task in the first project. This index should
+        match the output of list_tasks."""
+
+        counter = 0
+        project_task_count = 0
+        for p in self.projects:
+            for t in p.tasks:
+                if counter == index:
+                    return t
+                counter = counter + 1
+            project_task_count = project_task_count + p.get_number_of_tasks()
+
+    def get_number_of_tasks(self):
+        """Return the totoal number of tasks in this todo list."""
+        return sum([p.get_number_of_tasks() for p in self.projects])

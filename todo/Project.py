@@ -66,6 +66,16 @@ class Project(object):
             else:
                 print(f" {t}")
 
+    def finish(self):
+        """Finish all the tasks in the project."""
+        for t in self.tasks:
+            t.finish()
+
+    def unfinish(self):
+        """UnFinish all the tasks in the project."""
+        for t in self.tasks:
+            t.unfinish()
+
     def percent_finished(self):
         """Calculate the percetage of complete tasks as an integer."""
 
