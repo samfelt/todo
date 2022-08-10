@@ -1,3 +1,6 @@
+import tempfile
+from os import environ
+from subprocess import call
 from ..Project import Project
 from ..TodoList import TodoList
 from ..Task import Task
@@ -126,6 +129,42 @@ def delete_task(args=[]):
                     p.remove_task(index - project_task_count - starting_number)
                 counter = counter + 1
             project_task_count = project_task_count + p.get_number_of_tasks()
+
+    todo_list.export_file()
+
+
+def edit_task(args=[]):
+    """Pull up an editor to edit a task."""
+
+    todo_list = _import_todo_file()
+    if args and (args[0] == "--project" or args[0] == "-p"):
+        print("--------Projects--------")
+        starting_number = 1
+        todo_list.list_projects(starting_number)
+        index = int(input("Which project did you complete? "))
+        if (index < 1) or (index > len(todo_list.projects)):
+            print("Project number doesn't exist")
+            exit()
+        print("Editing a is not supported at this time.")
+    else:
+        starting_number = 1
+        todo_list.list_tasks(starting_number)
+        index = int(input("Which task did you complete? "))
+        if (index < 1) or (index > todo_list.get_number_of_tasks()):
+            print("Task number doesn't exist")
+            exit()
+
+        selected_task = todo_list.get_task_by_index(index - starting_number)
+        EDITOR = environ.get("EDITOR", "vim")
+        initial_description = selected_task.description
+        with tempfile.NamedTemporaryFile(suffix=".tmp") as tf:
+            tf.write(initial_description.encode())
+            tf.flush()
+            call(
+                [EDITOR, "+set backupcopy=yes", "+set nofixendofline", tf.name]
+            )
+            tf.seek(0)
+            selected_task.description = tf.read().decode()
 
     todo_list.export_file()
 

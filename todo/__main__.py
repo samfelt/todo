@@ -48,7 +48,7 @@ def main():
     # Parse arguments
     argument_parser = {
         "a": cli.actions.add_task,
-        # "e" : edit_task,
+        "e": cli.actions.edit_task,
         "d": cli.actions.delete_task,
         "f": cli.actions.finish_task,
         "h": cli.actions.usage,
@@ -59,7 +59,7 @@ def main():
         # "t" : testtesttest,
         # Long actions
         "add": cli.actions.add_task,
-        # "edit"  : edit_task,
+        "edit": cli.actions.edit_task,
         "delete": cli.actions.delete_task,
         "finish": cli.actions.finish_task,
         "unfinish": cli.actions.unfinish_task,
