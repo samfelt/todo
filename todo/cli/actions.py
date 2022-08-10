@@ -85,6 +85,51 @@ def add_task(args=[]):
     todo_list.export_file()
 
 
+def delete_task(args=[]):
+    """Delete a task from a project, or delete a whole project with all its
+    tasks."""
+
+    todo_list = _import_todo_file()
+
+    if args and (args[0] == "--project" or args[0] == "-p"):
+        print("--------Projects--------")
+        starting_number = 1
+        todo_list.list_projects(starting_number)
+        index = int(input("Which project did you delete? "))
+        if (index < 1) or (index > len(todo_list.projects)):
+            print("Project number doesn't exist")
+            exit()
+        selected_project = todo_list.projects[index - starting_number]
+        print()
+        print(f"---- {selected_project.name} ----")
+        selected_project.list_tasks()
+        ans = input(
+            f"\nDo you really want to delete '{selected_project.name}'? "
+        )
+        if ans == "y" or ans == "yes" or ans == "Y" or ans == "Yes":
+            print("Deleting...")
+            del todo_list.projects[index - starting_number]
+        else:
+            print("Not Deleting")
+    else:
+        starting_number = 1
+        todo_list.list_tasks(starting_number)
+        index = int(input("Which task did you delete? "))
+        if (index < 1) or (index > todo_list.get_number_of_tasks()):
+            print("Task number doesn't exist")
+            exit()
+        counter = starting_number
+        project_task_count = 0
+        for p in todo_list.projects:
+            for t in p.tasks:
+                if counter == index:
+                    p.remove_task(index - project_task_count - starting_number)
+                counter = counter + 1
+            project_task_count = project_task_count + p.get_number_of_tasks()
+
+    todo_list.export_file()
+
+
 def finish_task(args=[]):
     """If not defined in the arguments, let the user choose which task they
     would like to mark as finished."""
