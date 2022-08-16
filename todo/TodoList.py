@@ -38,14 +38,12 @@ class TodoList(object):
                         temp_task.finish()
                     temp_project.add_task(temp_task)
                 elif char_key == "|":
-                    if temp_project.percent_finished() == 100:
-                        temp_project.set_state(todo.Project.State.COMPLETE)
-                    if temp_project.percent_finished() > 0:
-                        temp_project.set_state(todo.Project.State.IN_PROGRESS)
+                    temp_project.set_state()
                     if temp_project.get_number_of_tasks() != 0:
                         self.projects.append(temp_project)
                     temp_project = todo.Project.Project("Temp Project")
                     temp_project.set_name(line[1:-2].strip())
+            temp_project.set_state()
             self.projects.append(temp_project)
 
     def export_file(self):

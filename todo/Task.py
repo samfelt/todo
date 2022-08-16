@@ -1,4 +1,5 @@
 from enum import Enum, auto
+import todo.config as config
 
 
 class State(Enum):
@@ -21,10 +22,11 @@ class Task(object):
     def __str__(self):
         """Return a formatted string to be printed to a terminal."""
 
+        color = config.COLORS.color_dict["task_" + self.state.name.lower()]
         if self.is_complete():
-            return f"[x] {self.description}"
+            return f"{color}[x] {self.description}{config.COLORS.NoC}"
         else:
-            return f"[ ] {self.description}"
+            return f"{color}[ ] {self.description}{config.COLORS.NoC}"
 
     def str_in_file_format(self, newline=False):
         """Return a string that can be placed directly in todo.txt."""

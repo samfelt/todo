@@ -52,7 +52,7 @@ class ColorTable:
             task_configs + project_configs,
             TextColors.NoC.value,
         )
-        self.Noc = TextColors.NoC.value
+        self.NoC = TextColors.NoC.value
 
     def import_config(self, color_config):
         """Set colors according to the config file. The config being passed to
