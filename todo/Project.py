@@ -1,22 +1,23 @@
 from enum import Enum, auto
 
 
+class State(Enum):
+    """Define the possible states of a task."""
+
+    NEW = auto()
+    IN_PROGRESS = auto()
+    COMPLETE = auto()
+
+
 class Project(object):
     """Contain all in information for a Project."""
-
-    class State(Enum):
-        """Define the possible states of a task."""
-
-        NEW = auto()
-        IN_PROGRESS = auto()
-        COMPLETE = auto()
 
     def __init__(self, name):
         """Initialize a new, empty Project."""
 
         self.tasks = []
         self.name = name
-        self.state = self.State.NEW
+        self.state = State.NEW
 
     def str_name(self, percentage=False):
         """Return a printable string with the name of the project. Include the

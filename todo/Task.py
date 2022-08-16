@@ -1,20 +1,21 @@
 from enum import Enum, auto
 
 
+class State(Enum):
+    """Define the possible states of a task."""
+
+    NEW = auto()
+    IN_PROGRESS = auto()
+    COMPLETE = auto()
+
+
 class Task(object):
     """Contain all in information for a Task."""
-
-    class State(Enum):
-        """Define the possible states of a task."""
-
-        NEW = auto()
-        IN_PROGRESS = auto()
-        COMPLETE = auto()
 
     def __init__(self, desc):
         """Initialize a new task with the given description."""
 
-        self.state = self.State.NEW
+        self.state = State.NEW
         self.description = desc
 
     def __str__(self):
@@ -42,15 +43,15 @@ class Task(object):
 
     def finish(self):
         """Set the task as complete."""
-        self.state = self.State.COMPLETE
+        self.state = State.COMPLETE
 
     def unfinish(self):
         """Set the task as in progress."""
-        self.state = self.State.IN_PROGRESS
+        self.state = State.IN_PROGRESS
 
     def is_complete(self):
         """Return True if the task is complete."""
-        if self.state == self.State.COMPLETE:
+        if self.state == State.COMPLETE:
             return True
         else:
             return False

@@ -1,10 +1,12 @@
 import configparser
 import os
+from todo.config.Colors import ColorTable
 
 
 TODO_DIR = os.path.expanduser("~/.todo")
 CONFIG_NAME = "config_todo.ini"
 CONFIG = os.path.join(TODO_DIR, CONFIG_NAME)
+COLORS = ColorTable()
 todo_file = os.path.join(TODO_DIR, "todo.txt")
 
 
@@ -22,7 +24,9 @@ def read_configuration_file():
     global encrypted
     todo_file = os.path.join(TODO_DIR, config["Main"]["file_name"])
     encrypted = config["Main"]["encryption"]
-    # COLORIZE = str_to_bool(config["Main"]["colorize_output"])
+
+    if config["Main"]["colorize_output"] == "True":
+        COLORS.import_config(config["Colors"])
 
 
 def first_run():

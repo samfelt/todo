@@ -1,10 +1,10 @@
 import tempfile
 from os import environ
 from subprocess import call
-from ..Project import Project
-from ..TodoList import TodoList
-from ..Task import Task
 import todo.config as config
+from todo.Project import Project
+from todo.Task import Task
+from todo.TodoList import TodoList
 
 
 def _str_to_bool(string):

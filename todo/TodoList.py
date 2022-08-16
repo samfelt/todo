@@ -1,6 +1,6 @@
 import shutil
-from .Task import Task
-from .Project import Project
+import todo.Task
+import todo.Project
 
 
 class TodoList(object):
@@ -28,23 +28,23 @@ class TodoList(object):
                                                            self.passphrase)
         """
 
-        temp_project = Project("Temp Project")
+        temp_project = todo.Project.Project("Temp Project")
         with open(self.filename, "r") as f:
             for line in f:
                 char_key = line[0]
                 if char_key == "[":
-                    temp_task = Task(line[4:-1])
+                    temp_task = todo.Task.Task(line[4:-1])
                     if line[1] == "x":
                         temp_task.finish()
                     temp_project.add_task(temp_task)
                 elif char_key == "|":
                     if temp_project.percent_finished() == 100:
-                        temp_project.set_state(temp_project.State.COMPLETE)
+                        temp_project.set_state(todo.Project.State.COMPLETE)
                     if temp_project.percent_finished() > 0:
-                        temp_project.set_state(temp_project.State.IN_PROGRESS)
+                        temp_project.set_state(todo.Project.State.IN_PROGRESS)
                     if temp_project.get_number_of_tasks() != 0:
                         self.projects.append(temp_project)
-                    temp_project = Project("Temp Project")
+                    temp_project = todo.Project.Project("Temp Project")
                     temp_project.set_name(line[1:-2].strip())
             self.projects.append(temp_project)
 
