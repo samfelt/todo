@@ -68,7 +68,8 @@ class ColorTable:
         """From a string that matches a color from TextColors, return the
         corresponding color code."""
 
-        if color in TextColors.__members__.keys():
-            return TextColors[color].value
-        else:
-            return ""
+        color_string = ""
+        for c in color.split(", "):
+            if c in TextColors.__members__.keys():
+                color_string += TextColors[c].value
+        return color_string
