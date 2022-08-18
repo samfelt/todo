@@ -219,3 +219,27 @@ def unfinish_task(args=[]):
         todo_list.get_task_by_index(index - starting_number).unfinish()
 
     todo_list.export_file()
+
+
+def sort_tasks(args=[]):
+    """Sort tasks so that finished tasks appear at the end of the list."""
+
+    todo_list = _import_todo_file()
+    if args and (args[0] == "--project" or args[0] == "-p"):
+        print("--------Projects--------")
+        starting_number = 1
+        todo_list.list_projects(starting_number)
+        index = int(input("Which project did you un-finish? "))
+        if (index < 1) or (index > len(todo_list.projects)):
+            print("Project number doesn't exist")
+            exit()
+        project = todo_list.projects[index - starting_number]
+        project.sort()
+        print(project.str_name())
+        project.list_tasks()
+    else:
+        for project in todo_list.projects:
+            project.sort()
+        todo_list.list_tasks()
+
+    todo_list.export_file()

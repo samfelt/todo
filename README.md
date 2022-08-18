@@ -1,2 +1,3 @@
 # todo
-A simple todo list manager to maintain a able todo list
+
+A simple todo list manager to maintain a readable able todo list
