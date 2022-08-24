@@ -21,6 +21,10 @@ def main():
     # config = configparser.ConfigParser()
     # config.read(CONFIG)
 
+    if not config.todo_dir_exists():
+        print("[*] Running first time configuration")
+        config.first_run()
+        print()
     config.read_configuration_file()
 
     # Encryption
